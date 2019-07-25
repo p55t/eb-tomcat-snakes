@@ -126,7 +126,7 @@ The **Search** page lets you perform a basic search for a movie with full name m
 ## Database Use
 The application can connect to an RDS DB instance that is part of your Elastic Beanstalk environment, or an independent RDS DB instance that you launched outside of Elastic Beanstalk. 
 
-**OPTIONAL** To connect to an external DB instance, configure Environment Properties for each of the connection variables (RDS_HOST, etc), or store the full connection string in a JSON file in Amazon S3. 
+**(OPTIONAL)** To connect to an external DB instance, configure Environment Properties for each of the connection variables (RDS_HOST, etc), or store the full connection string in a JSON file in Amazon S3. 
 
 The application looks for a table named movies. If it doesn't find one, it creates a new table and seeds it a with a few entries read from a JSON file included in the source bundle.
 
