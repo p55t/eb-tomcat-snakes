@@ -83,21 +83,12 @@ Run ``build.sh`` to compile the web app and create a WAR file (OS X or Linux):
 	~$ cd eb-tomcat-snakes
 	~/eb-tomcat-snakes$ ./build.sh
 
-Or in Windows with Git Bash:
-
-	~/eb-tomcat-snakes$ ./build-windows.sh
-
 **IMPORTANT**
 Always run build.sh from the root of the project directory.
 
-The script compiles the project's classes, packs the necessary files into a web archive, and then attempts to copy the WAR file to ``/Library/Tomcat`` for local testing. If you installed Tomcat to another location, change the path in ``build.sh``:
+**Once you have compiled/build the project, download the WAR file (ROOT.war) to your local machine from Cloud9 IDE to deploy into Elastic Beanstalk using the AWS Console.**
 
-	if [ -d "/path/to/Tomcat/webapps" ]; then
-	  cp ROOT.war /path/to/Tomcat/webapps
-
-Open [localhost:8080](http://localhost:8080/) in a web browser to view the application running locally.
-
-You can use either the AWS Management Console or the EB CLI to launch the compiled WAR. Scroll down for EB CLI instructions.
+You can use either the AWS Management Console to launch the compiled WAR (ROOT.war). 
 
 ##### To deploy with the AWS Management Console
 1. Open the [Elastic Beanstalk Management Console](https://console.aws.amazon.com/elasticbeanstalk/home)
@@ -121,35 +112,6 @@ You can use either the AWS Management Console or the EB CLI to launch the compil
 
 The process takes about 15 minutes. If you want to save time during the initial environment creation, you can launch the environment without a database, and then add one after the environment is running from the Configuration page. Launching an RDS DB instance takes about 10 minutes.
 
-##### To deploy with the EB CLI
-
-The EB CLI requires Python 2.7 or 3.4 and the package manager ``pip``. For detailed instructions on installing the EB CLI, see [Install the EB CLI](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html) in the AWS Elastic Beanstalk Developer Guide.
-
-Install the EB CLI:
-
-	~$ pip install awsebcli
-
-Initialize the project repository:
-
-	~/eb-tomcat-snakes$ eb init
-
-Add the following to ``.elasticbeanstalk/config.yml``:
-
-	deploy:
-	  artifact: ROOT.war
-
-Create an environment with an RDS database:
-
-	~/eb-tomcat-snakes$ eb create tomcat-snakes --sample --single --timeout 20 -i t2.micro --database.engine postgres --database.instance db.t2.micro --database.username *any username* --database.password *any password*
-
-Deploy the project WAR to your new environment:
-
-	~/eb-tomcat-snakes$ eb deploy --staged
-
-Open the environment in a browser:
-
-	~/eb-tomcat-snakes$ eb open
-
 ## Site Functionality
 The application is a simple Java EE site that uses simple tags, tag files, and an SQL database hosted in an external database in Amazon Relational Database Service (Amazon RDS).
 
@@ -162,44 +124,11 @@ The **Add a Movie** page is a form that lets a user add a movie to the database.
 The **Search** page lets you perform a basic search for a movie with full name matches only.
 
 ## Database Use
-The application can connect to an RDS DB instance that is part of your Elastic Beanstalk environment, or an independent RDS DB instance that you launched outside of Elastic Beanstalk. To connect to an external DB instance, configure Environment Properties for each of the connection variables (RDS_HOST, etc), or store the full connection string in a JSON file in Amazon S3. 
+The application can connect to an RDS DB instance that is part of your Elastic Beanstalk environment, or an independent RDS DB instance that you launched outside of Elastic Beanstalk. 
 
-For the latter method, a configuration file is included under ``src/.ebextensions/inactive`` that you can modify to download the connection object from S3. When the configuration file is updated to point at your bucket and object, and moved into the ``src/.ebextensions`` folder, Elastic Beanstalk downloads the file to the EC2 instance running your application during deployment. When the application attempts to create a database connection, it will look for the file and use the connection string that it specifies to connect to the database prior to reading environment variables.
+**OPTIONAL** To connect to an external DB instance, configure Environment Properties for each of the connection variables (RDS_HOST, etc), or store the full connection string in a JSON file in Amazon S3. 
 
 The application looks for a table named movies. If it doesn't find one, it creates a new table and seeds it a with a few entries read from a JSON file included in the source bundle.
-
-### DB Instance Administration
-To manage the RDS DB instance, first connect to an instance in your environment with SSH. If you did not choose an SSH key during environment creation, you can assign one with the EB CLI. Run ``eb config`` and type a key name in the ``EC2KeyName`` field under ``settings``. If you don't have an SSH key, run ``eb init -i`` and create an SSH key when prompted.
-
-If you want to clear the Movies table or test changes to the table initialization code, connect to the DB instance from an instance in your environment to run administrator commands.
-
-Run ``eb ssh`` to connect to an instance:
-
-	~\eb-tomcat-snakes$ eb ssh
-
-Install the PostgreSQL client:
-
-	[ec2-user@ip-555-55-55-555 ~]$ sudo yum install postgresql94
-
-Connect to the RDS DB instance:
-
-	[ec2-user@ip-555-55-55-555 ~]$ psql --dbname=ebdb --host=*DB_INSTANCE_HOSTNAME* --username=*DB_USERNAME*
-
-Read ``Movies`` table:
-
-	ebdb=> SELECT * FROM movies;
-
-Delete ``Movies`` table (WARNING: Deletes ``Movies`` table):
-
-	ebdb=> DROP TABLE Movies;
-
-Exit psql:
-
-	ebdb=> \q
-
-Exit SSH:
-
-	[ec2-user@ip-555-55-55-555 ~]$ exit
 
 ## Log4j
 The application uses Log4j to generate a log file named ``snakes.log``. The project includes a configuration file in ``src/.ebextensions`` that configures Elastic Beanstalk to include ``snakes.log`` when you request tailed logs.
