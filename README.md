@@ -2,10 +2,72 @@
 Tomcat application that shows the use of RDS in a Java EE web application in AWS Elastic Beanstalk. The project shows the use of Servlets, JSPs, Simple Tag Support, Tag Files, JDBC, SQL, Log4J, Bootstrap, Jackson, and Elastic Beanstalk configuration files.
 
 ## INSTRUCTIONS
-Install the Java 8 JDK. The java compiler is required to run the build script.
-If you would like to run the web app locally, install Tomcat 8 and Postgresql 9.4.
 
-You can deploy the ROOT.war archive that build.sh generates to an AWS Elastic Beanstalk web server environment running the Tomcat 8 platform.
+### Note that this lab guide is meant for AWS Lab Accounts, please follow [this lab guide](https://github.com/aws-samples/eb-tomcat-snakes) if you are using your own AWS account.
+### IMPORTANT: Please kindy read the section on Prerequisites - Lab Environment before starting the lab.
+
+## Prerequisites - Lab Environment
+          
+**IAM Permissions:** 
+As the AWS accounts you are about to use are Lab accounts, they do not have permissions to make any changes to IAM settings.
+For any commands/steps that requires IAM Role ARN, please kindly use the pre-created role: **Team Role** .
+
+https://console.aws.amazon.com/iam/home?region=ap-southeast-1#/roles/TeamRole
+
+***It will be useful to note down the ARN for Team Role which will be required throughout the lab***
+
+### AWS Cloud9 IDE - Set up
+
+AWS Cloud9 is a cloud-based integrated development environment (IDE) that lets you write, run, and debug your code with just a browser. It includes a code editor, debugger, and terminal. Cloud9 comes pre-packaged with essential tools for popular programming languages and the AWS Command Line Interface (CLI) pre-installed so you don't need to install files or configure your laptop for this workshop. Your Cloud9 environment will have access to the same AWS resources as the user with which you logged into the AWS Management Console.
+
+Take a moment now and setup your Cloud9 development environment.
+
+### ✅  Step-by-step Instructions
+
+1. Go to the AWS Management Console, click **Services** then select **Cloud9** under Developer Tools.
+2. Click **Create environment**.
+3. Enter `MyDevEnvironment` into **Name** and optionally provide a **Description**.
+4. Click **Next step**.
+5. You may leave **Environment settings** at their defaults of launching a new **t2.micro** EC2 instance which will be paused after **30 minutes** of inactivity.
+6. Click **Next step**.
+7. Review the environment settings and click **Create environment**. It will take several minutes for your environment to be provisioned and prepared.
+8. Once ready, your IDE will open to a welcome screen. Below that, you should see a terminal prompt similar to: ![setup](./img/setup-cloud9-terminal.png) You can run AWS CLI commands in here just like you would on your local computer. Verify that your user is logged in by running the following command.
+
+```console
+user:~/environment $ aws sts get-caller-identity
+```
+
+You'll see output indicating your account and user information:
+```console
+{
+    "Account": "123456789012",
+    "UserId": "AKIAI44QH8DHBEXAMPLE",
+    "Arn": "arn:aws:iam::123456789012:user/user"
+}
+```
+
+Keep your AWS Cloud9 IDE opened in a tab throughout this workshop as we'll use it for activities like cloning, pushing changes to repository and using the AWS CLI.
+
+### Setup Git Credentials for Cloud9
+
+Before we start to clone the Repo, we need to configure the AWS CLI credential helper to manage the credentials for connections to your CodeCommit repository. The AWS Cloud9 development environment comes with AWS managed temporary credentials that are associated with your IAM user. You use these credentials with the AWS CLI credential helper.
+
+1. Update the packages within your AWS Cloud9 instance.
+```console
+user:~/environment $ sudo yum update -y
+
+```
+2. Configure your chosen user name and email to be associated with your Git commits by running the git config command. For example:
+```console
+user:~/environment $ git config --global user.name "Mary Major"
+user:~/environment $ git config --global user.email mary.major@example.com
+```
+3. Run the following commands to configure the AWS CLI credential helper for HTTPS connections:
+```console
+user:~/environment $ git config --global credential.helper '!aws codecommit credential-helper $@'
+user:~/environment $ git config --global credential.UseHttpPath true
+```
+***
 
 ### To download, build and deploy the project
 Clone the project (SSH):
