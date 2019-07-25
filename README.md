@@ -70,6 +70,8 @@ user:~/environment $ git config --global credential.UseHttpPath true
 ***
 
 ### To download, build and deploy the project
+Using Cloud9 Terminal, run the following commands to clone and build the source code.
+
 Clone the project (SSH):
 
 	~$ git clone git@github.com:awslabs/eb-tomcat-snakes.git
@@ -78,7 +80,7 @@ Or with HTTPS:
 
 	~$ git clone https://github.com/awslabs/eb-tomcat-snakes.git
 
-Run ``build.sh`` to compile the web app and create a WAR file (OS X or Linux):
+Run ``build.sh`` to compile the web app and create a WAR file:
 
 	~$ cd eb-tomcat-snakes
 	~/eb-tomcat-snakes$ ./build.sh
