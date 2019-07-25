@@ -97,20 +97,20 @@ You can use either the AWS Management Console to launch the compiled WAR (ROOT.w
 2. Choose *Create New Application*
 3. For *Application Name*, type **tomcat-snakes**. Choose *Next*.
 4. Choose *Web Server Environment*
-5. Set the platform to *Tomcat* and choose *Next*.
-6. Choose *Upload your own* and *Choose File*.
+5. Set the platform, preconfigured platform to *Tomcat* and choose *Next*.
+6. Select Upload your code for Application code, click *Upload* and *Choose File*.
 7. Upload *ROOT.war* from your project directory and choose *Next*.
-8. Type a unique *Environment URL* and choose *Next*.
-9. Check *Create an RDS DB Instance with this environment* and choose *Next*.
-10. Set *Instance type* to *t2.nano* and choose *Next*. Choose *Next* again to skip tag configuration.
+8. Click *Configure more options*.
+9. Select Configuration presets to be *High Availability*.
+10. Find *Database* and choose *Modify*.
 11. Apply the following RDS settings and choose *Next* (leave the other settings default):
     - DB engine: *postgres*
-    - Engine version: *9.4.5*
+    - Engine version: *9.4.7*
     - Instance class: *db.t2.micro*
     - Master username: any username
     - Master password: any password
-12. Choose **Next** to create and use the default role and instance profile. 
-13. Choose **Launch**.
+12. Leave the rest of the DB settings as defaults and click *Save*
+13. Choose **Create Environment** to create the environment. 
 
 The process takes about 15 minutes. If you want to save time during the initial environment creation, you can launch the environment without a database, and then add one after the environment is running from the Configuration page. Launching an RDS DB instance takes about 10 minutes.
 
