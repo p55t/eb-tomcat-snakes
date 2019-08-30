@@ -72,11 +72,7 @@ user:~/environment $ git config --global credential.UseHttpPath true
 ### To download, build and deploy the project
 Using Cloud9 Terminal, run the following commands to clone and build the source code.
 
-Clone the project (SSH):
-
-	~$ git clone git@github.com:awslabs/eb-tomcat-snakes.git
-
-Or with HTTPS:
+Clone the project:
 
 	~$ git clone https://github.com/awslabs/eb-tomcat-snakes.git
 
