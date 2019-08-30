@@ -91,8 +91,8 @@ You can use either the AWS Management Console to launch the compiled WAR (ROOT.w
 ##### To deploy with the AWS Management Console
 1. Open the [Elastic Beanstalk Management Console](https://console.aws.amazon.com/elasticbeanstalk/home)
 2. Choose *Create New Application*
-3. For *Application Name*, type **tomcat-snakes**. Choose *Next*.
-4. Choose *Web Server Environment*
+3. For *Application Name*, type **tomcat-snakes**. Choose *Create*.
+4. Click on Actions Button and selet Create Environment. Choose *Web Server Environment*
 5. Set the platform, preconfigured platform to *Tomcat* and choose *Next*.
 6. Select Upload your code for Application code, click *Upload* and *Choose File*.
 7. Upload *ROOT.war* from your project directory and choose *Next*.
