@@ -6,16 +6,6 @@ Tomcat application that shows the use of RDS in a Java EE web application in AWS
 ### Note that this lab guide is meant for AWS Lab Accounts, please follow [this lab guide](https://github.com/aws-samples/eb-tomcat-snakes) if you are using your own AWS account.
 ### IMPORTANT: Please kindy read the section on Prerequisites - Lab Environment before starting the lab.
 
-## Prerequisites - Lab Environment
-          
-**IAM Permissions:** 
-As the AWS accounts you are about to use are Lab accounts, they do not have permissions to make any changes to IAM settings.
-For any commands/steps that requires IAM Role ARN, please kindly use the pre-created role: **Team Role** .
-
-https://console.aws.amazon.com/iam/home?region=ap-southeast-1#/roles/TeamRole
-
-***It will be useful to note down the ARN for Team Role which will be required throughout the lab***
-
 ### AWS Cloud9 IDE - Set up
 
 AWS Cloud9 is a cloud-based integrated development environment (IDE) that lets you write, run, and debug your code with just a browser. It includes a code editor, debugger, and terminal. Cloud9 comes pre-packaged with essential tools for popular programming languages and the AWS Command Line Interface (CLI) pre-installed so you don't need to install files or configure your laptop for this workshop. Your Cloud9 environment will have access to the same AWS resources as the user with which you logged into the AWS Management Console.
